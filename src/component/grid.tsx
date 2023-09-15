@@ -1,9 +1,9 @@
-import React from "react";
+import { FC } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { GridProps } from "./types";
 
-const Grid: React.FC<GridProps> = ({ data }) => {
+const Grid: FC<GridProps> = ({ data }) => {
   return (
     <div className="p-grid">
       <div className="p-col">

@@ -1,19 +1,36 @@
-export type GridType = {
+import { Content } from "pdfmake/interfaces";
+
+export type GridDetailsType = {
+  id: number;
+  code: number;
+  description: string;
+  amount: number;
+  price: number;
+};
+
+export type GridDataType = {
   id: number;
   code: string;
   description: string;
   active: boolean;
   price: number;
+
+  details?: GridDetailsType[];
 };
 
 export type GridProps = {
-  data: GridType[];
+  data: GridDataType[];
 };
 
-export type PdfProps = GridProps & {
+export type HeaderPdf = {
+  image?: string;
+  description: string[];
+};
+
+export type PdfGeneratorProps = {
   title: string;
-  columns: {
-    field: string;
-    header: string;
-  }[];
+  header: HeaderPdf;
+  graph?: string;
+  content: Content;
+  type: "analitic" | "sintatic";
 };
