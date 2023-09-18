@@ -10,6 +10,8 @@ import { HeaderExtracao } from "./pdf-data/header";
 import { PdfContent } from "./pdf-data/content";
 import { useGridData } from "./global/use-grid-data";
 import { ColumnsProps } from "./global/types";
+import ContactPdf from "./contact-pdf";
+import EtiquetasPDF from "./etiqueta";
 
 function App() {
   const { columns, gridData, columnsDetails } = useGridData();
@@ -40,8 +42,8 @@ function App() {
     type,
   });
   const { pdfGenerator } = usePdfGenerator({
-    content: content,
-    header: header,
+    content,
+    header,
     title: `Relatorio de Vendas`,
     graph: type === "analitic" ? canvasRef.current?.toDataURL("png") : "",
     type,
@@ -75,7 +77,7 @@ function App() {
   return (
     <>
       <div>
-        <h1>New PDF Make</h1>
+        <h1>PDF Make</h1>
         <Button
           onClick={() => {
             pdfGenerator();
@@ -91,6 +93,7 @@ function App() {
         >
           Gera Analitico
         </Button>
+        <EtiquetasPDF />
       </div>
       {isDialogVisible && (
         <Dialog
@@ -152,6 +155,7 @@ function App() {
                   pdfGenerator();
 
                 setIsDialogVisible(false);
+                setType("sintatic");
               }}
               className="p-button-secondary"
             />
@@ -161,6 +165,8 @@ function App() {
 
       <Grid data={gridData} />
       <Chart canvasRef={canvasRef} />
+
+      <ContactPdf />
     </>
   );
 }

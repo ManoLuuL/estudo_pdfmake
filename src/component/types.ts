@@ -32,5 +32,5 @@ export type PdfGeneratorProps = {
   header: HeaderPdf;
   graph?: string;
   content: Content;
-  type: "analitic" | "sintatic";
+  type?: "analitic" | "sintatic";
 };

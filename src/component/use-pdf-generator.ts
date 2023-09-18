@@ -17,7 +17,7 @@ export const usePdfGenerator = (props: PdfGeneratorProps) => {
       header: {
         alignment: "center",
         margin: [0, 20, 0, 0],
-        text: `${title} - ${typePdf}`,
+        text: type ? `${title} - ${typePdf}` : title,
         fontSize: 16,
         bold: true,
       },

@@ -19,6 +19,36 @@ export const PdfContent = (props: PdfContentProps) => {
     ? data.reduce((total, item) => total + item.price, 0).toFixed(2)
     : "";
 
+  const detailsArray = data
+    .map((item) => item.details)
+    .filter((details) => details !== undefined);
+  console.log(detailsArray);
+
+  // Extrair os detalhes de todos os itens
+  const allDetails = data
+    .map((item) => item.details)
+    .filter((details) => details !== undefined)
+    .flat();
+
+  // Criar um mapa para calcular as somas dos produtos
+  const productSummaryMap = new Map();
+  allDetails.forEach((detail) => {
+    if (!productSummaryMap.has(detail?.description)) {
+      productSummaryMap.set(detail?.description, {
+        description: detail?.description,
+        quantity: detail?.amount,
+        totalValue: detail?.price,
+      });
+    } else {
+      const existingProduct = productSummaryMap.get(detail?.description);
+      existingProduct.quantity += detail?.amount;
+      existingProduct.totalValue += detail?.price;
+    }
+  });
+
+  // Converter o mapa de resumo em uma matriz
+  const productSummary = Array.from(productSummaryMap.values());
+
   const content: Content = [
     {
       table: {
@@ -157,6 +187,34 @@ export const PdfContent = (props: PdfContentProps) => {
           layout: "lightHorizontalLines", // Adicione linhas horizontais leves à tabela
           margin: [0, 20, 0, 0],
         },
+    {
+      alignment: "center",
+      margin: [0, 10],
+      text: "Resumos",
+      fontSize: 16,
+      pageBreak: "before",
+    },
+    {
+      alignment: "center",
+      table: {
+        widths: ["*", "*", "*"],
+        headerRows: 1,
+        body: [
+          [
+            { text: "Produto", bold: true },
+            { text: "Quantidade", bold: true },
+            { text: "Valor Total", bold: true },
+          ],
+          ...productSummary.map((product) => [
+            product.description,
+            product.quantity,
+            product.totalValue.toFixed(2),
+          ]),
+        ],
+      },
+      layout: "lightHorizontalLines",
+      margin: [0, 10],
+    },
   ];
 
   return {

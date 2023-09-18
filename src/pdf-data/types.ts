@@ -13,5 +13,5 @@ export type PdfContentProps = {
   data: GridDataType[];
   columns: ColumnsProps[];
   columnsDetails: ColumnsProps[] | undefined;
-  pdfType: "analitic" | "sintatic";
+  type: "analitic" | "sintatic";
 };
