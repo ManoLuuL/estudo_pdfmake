@@ -1,16 +1,16 @@
 import ImageToBase64 from "../global/convert";
 import { HeaderPdf } from "../component/types";
-import frg from "../assets/logo.png";
+import icon from "../assets/icon.png";
 
 export const HeaderExtracao = () => {
-  const { base64Image } = ImageToBase64(frg);
+  const { base64Image } = ImageToBase64(icon);
 
   const header: HeaderPdf = {
     description: [
-      "Frg Informatica\n",
-      "Av. Pres. Vargas, 64 - Labienópolis, Garça - SP, 17404-318\n",
-      "(14) 3588-1100\n",
-      "suporte@frgnet.com.br\n",
+      "AAAAAAAA\n",
+      "Rua, 64 - Labie, Garça - SP, 17434-218\n",
+      "(14) 3228-1220\n",
+      "suporte@suport.com.br\n",
     ],
     image: base64Image ?? "",
   };
